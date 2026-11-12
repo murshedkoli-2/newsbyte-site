@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Connecting TikTok — NewsByte</title>
+  <link rel="icon" href="logo.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <span class="kicker">NewsByte Publisher</span>
+      <h1>Connecting TikTok…</h1>
+      <p class="lead" id="msg">Handing the sign-in back to NewsByte Publisher on your computer.</p>
+    </section>
+  </main>
+  <script>
+    // TikTok only redirects to registered https addresses, so it lands here and this page
+    // forwards the result to the sign-in helper listening on the same computer
+    // (npm run tiktok:auth). Nothing is stored or sent anywhere else.
+    (function () {
+      var query = window.location.search;
+      if (!query) {
+        document.getElementById("msg").textContent = "Nothing to do here. Start the sign-in with: npm run tiktok:auth";
+        return;
+      }
+      window.location.replace("http://127.0.0.1:8766/" + query);
+      setTimeout(function () {
+        document.getElementById("msg").textContent =
+          "If nothing happened, the sign-in helper is not running. Run npm run tiktok:auth and try again.";
+      }, 4000);
+    })();
+  </script>
+</body>
+</html>
